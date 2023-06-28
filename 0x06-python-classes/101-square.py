@@ -1,7 +1,6 @@
 #!/usr/bin/python3
-"""task 6: based on 5-square.py, add method
-for private instance field "position
-with getter and setters with specific conditions
+"""task 8: based on 6-square.py, add method
+for print class that acts like my_print
 """
 
 
@@ -40,6 +39,22 @@ class Square():
             raise ValueError("size must be >= 0")
         self.__size = value
 
+    @property
+    def position(self):
+        """ position field getter """
+        return self.__position
+
+    @position.setter
+    def position(self, value):
+        """ position setter """
+        for idx, val in enumerate(value):
+            msg = "position must be a tuple of 2 positive integers"
+            if (type(val) != int or val < 0 or idx > 1 or
+                    type(value) != tuple or len(value) != 2):
+                raise TypeError(msg)
+                return
+        self.__position = value
+
     def my_print(self):
         """ print square using #'s in stdout
         and won't print anything if size = 0
@@ -59,18 +74,24 @@ class Square():
         else:  # size == 0 then print new line
             print("")
 
-    @property
-    def position(self):
-        """ position field getter """
-        return self.__position
-
-    @position.setter
-    def position(self, value):
-        """ position setter """
-        for idx, val in enumerate(value):
-            msg = "position must be a tuple of 2 positive integers"
-            if (type(val) != int or val < 0 or
-                    len(value) != 2 or type(value) != tuple):
-                raise TypeError(msg)
-                return
-        self.__position = value
+    def __str__(self):
+        """ handle print(square class)
+        like my_print method
+        print square using #'s in stdout
+        and won't print anything if size = 0
+        position = (x, y)
+        self.__position[0] = shift in x axis
+        self.__position[1] = shift in y axis
+        """
+        if self.__size > 0:
+            for spc in range(self.__position[1]):
+                print("")
+            for Vunit in range(self.__size):
+                for spc in range(self.__position[0]):
+                    print(" ", end="")
+                for Hunit in range(self.__size):
+                    print("#", end="")
+                print("\n", end="")
+        else:  # size == 0 then print new line
+            print("")
+        return ("")  # must return string type
